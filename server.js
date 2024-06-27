@@ -1,19 +1,20 @@
 const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // Import cors
+const cors = require('cors');
+require('dotenv').config(); // Load environment variables from .env file
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
 
 const pool = mysql.createPool({
-  host: 'sql7.freesqldatabase.com',
-  user: 'sql7715824',
-  password: 'V6irYfJtgg',
-  database: 'sql7715824'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 app.get('/citations', (req, res) => {
